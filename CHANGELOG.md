@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/szejkerek/com.szejkerek.gordonessentials/compare/v1.0.0...v1.0.1) (2024-01-22)
+
+
+### Bug Fixes
+
+* smth ([4f5ac22](https://github.com/szejkerek/com.szejkerek.gordonessentials/commit/4f5ac227727f12e1f427a8b574ef4cad23445f8d))
+
 # 1.0.0 (2024-01-22)
 
 
