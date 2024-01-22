@@ -1,0 +1,21 @@
+{
+  "name": "com.szejkerek.gordonessentials",
+  "version": "1.0.0",
+  "displayName": "Gordon Essentials",
+  "description": "Unity package for starting new project.",
+  "documentationUrl": "https://example.com/",
+  "changelogUrl": "https://example.com/changelog.html",
+  "licensesUrl": "https://example.com/licensing.html",
+  "author": {
+    "name": "Unity",
+    "email": "bartekk.gordon@gmail.com",
+    "url": "https://www.unity3d.com"
+  },
+  "samples": [
+    {
+      "displayName": "Example",
+      "description": "Example description",
+      "path": "Samples~/Example"
+    }
+  ]
+}
