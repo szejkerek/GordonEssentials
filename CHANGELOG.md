@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/szejkerek/com.szejkerek.gordonessentials/compare/v1.0.1...v1.0.2) (2024-01-23)
+
+
+### Bug Fixes
+
+* Editor classes to init projec structure ([e6f8e5d](https://github.com/szejkerek/com.szejkerek.gordonessentials/commit/e6f8e5db0e2a7e45d39a678cd04c665ec412f7c0))
+
 ## [1.0.1](https://github.com/szejkerek/com.szejkerek.gordonessentials/compare/v1.0.0...v1.0.1) (2024-01-22)
 
 
