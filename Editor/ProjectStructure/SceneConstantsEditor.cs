@@ -1,7 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.WSA;
 
 public class SceneConstantsEditor : EditorWindow
 {
@@ -27,19 +29,34 @@ public class SceneConstantsEditor : EditorWindow
 
     public static void CreateSceneConstantsClass()
     {
-        string folderPath = Path.Combine("Assets", ProjectFilesEditor.scriptsFolder);
-
-        if (!Directory.Exists(folderPath))
+        string currentPath = Path.Combine("Assets", ProjectFilesEditor.scriptsFolder);
+        if (!AssetDatabase.IsValidFolder(currentPath))
         {
-            Directory.CreateDirectory(folderPath);
+            AssetDatabase.CreateFolder(Path.GetDirectoryName(currentPath), Path.GetFileName(currentPath));
         }
 
-        string classContent = GenerateClassContent();
-        string filePath = Path.Combine(folderPath, $"{className}.cs");
-        File.WriteAllText(filePath, classContent);
-        AssetDatabase.Refresh();
+        currentPath = Path.Combine("Assets", ProjectFilesEditor.scriptsUtilityFolder);
+        if (!AssetDatabase.IsValidFolder(currentPath))
+        {
+            AssetDatabase.CreateFolder(Path.GetDirectoryName(currentPath), Path.GetFileName(currentPath));
+        }
 
-        Debug.Log($"{className} class created at: {filePath}");
+
+        string classContent = GenerateClassContent();
+        string filePath = Path.Combine(currentPath, $"{className}.cs");
+
+        try
+        {
+            File.WriteAllText(filePath, classContent);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError($"Failed to write file: {ex.Message}");
+            return;
+        }
+
+        AssetDatabase.Refresh();
+        Debug.Log($"Successfully created {className}");
     }
 
     public static string GenerateClassContent()

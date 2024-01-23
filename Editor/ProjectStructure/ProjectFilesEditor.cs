@@ -6,25 +6,29 @@ using UnityEngine;
 public class ProjectFilesEditor : EditorWindow
 {
     public static string scriptsFolder = "__Scripts";
+    public static string scriptsUtilityFolder = Path.Combine("__Scripts", "Utility");
+    public static string colorsFolder = Path.Combine("Art", "Materials", "BasicColors");
     public static List<string> folderNames = new List<string>
     {
+        scriptsFolder,
+        scriptsUtilityFolder,
         "_Prefabs",
         "Art",
-        //"Art/2D",
-        //"Art/3D",
-        //"Art/Materials",
-        //"Art/Materials/BasicColors",
-        //"Art/Shaders",
-        //"Art/VisualEffects",
-        //"Audio",
-        //"Editor",
-        //"GameData",
-        //"Plugins",
-        //"Resources",
-        //"Scenes",
-        //"Tests",
-        //"Tests/Playmode",
-        //"Tests/Editor"
+        "Art/2D",
+        "Art/3D",
+        "Art/Materials",
+        "Art/Shaders",
+        colorsFolder,
+        "Art/VisualEffects",
+        "Audio",
+        "Editor",
+        "GameData",
+        "Plugins",
+        "Resources",
+        "Scenes",
+        "Tests",
+        "Tests/Playmode",
+        "Tests/Editor"
     };
 
     [MenuItem("Tools/Project Files Manager")]
@@ -40,17 +44,7 @@ public class ProjectFilesEditor : EditorWindow
 
         if (GUILayout.Button("Create Default File Structure"))
         {
-            CreateScriptsFolder();
             CreateDefaultFileStructure();
-        }
-    }
-
-    private void CreateScriptsFolder()
-    {
-        string scriptsFolderPath = Path.Combine("Assets", scriptsFolder);
-        if (!AssetDatabase.IsValidFolder(scriptsFolderPath))
-        {
-            AssetDatabase.CreateFolder(Path.GetDirectoryName(scriptsFolderPath), Path.GetFileName(scriptsFolderPath));
         }
     }
 
@@ -65,7 +59,7 @@ public class ProjectFilesEditor : EditorWindow
         Debug.Log("Default file structure created.");
     }
 
-    private static void CreateFolderStructure(string basePath, string folderPath)
+    public static void CreateFolderStructure(string basePath, string folderPath)
     {
         string[] folders = folderPath.Split('/');
         string currentPath = basePath;
