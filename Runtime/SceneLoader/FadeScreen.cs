@@ -1,54 +1,61 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
-public class FadeScreen : MonoBehaviour
+public class FadeScreen : Singleton<FadeScreen>
 {
-    public float FadeDuration => fadeDuration;
-    [SerializeField] float fadeDuration = .75f;
+    [SerializeField] private float fadeDuration = 0.75f;
+    [SerializeField] private bool fadeOnStart;
 
-    [SerializeField] bool fadeOnStart;
-    [SerializeField] Color fadeColor;
-    Renderer rend;
-
-    private void Awake()
+    IFadeScreenTarget target;
+    protected override void Awake()
     {
-        rend = GetComponent<Renderer>();
+        base.Awake();
+        target = GetComponent<IFadeScreenTarget>();
         if (fadeOnStart)
         {
             FadeIn();
         }
     }
 
-    public void FadeIn()
-    {
-        Fade(1, 0);
-    }
+    public float FadeDuration => fadeDuration;
 
-    public void FadeOut()
-    {
-        Fade(0, 1);
-    }
+    public void FadeIn() => Fade(1, 0);
+
+    public void FadeOut() => Fade(0, 1);
 
     public void Fade(float alphaIn, float alphaOut)
     {
-        StartCoroutine(FadeRoutine(alphaIn, alphaOut));
+        StartCoroutine(FadeCoroutine(alphaIn, alphaOut));
     }
 
-    public IEnumerator FadeRoutine(float alphaIn, float alphaOut)
+    public void FadeAction(Action action)
+    {
+        StartCoroutine(FadeActionCoroutine(action));
+    }
+
+    private IEnumerator FadeActionCoroutine(Action action)
+    {
+        yield return FadeCoroutine(0, 1);
+
+        action?.Invoke();
+
+        yield return new WaitForSeconds(0.25f);
+
+        yield return FadeCoroutine(1, 0);
+    }
+
+    private IEnumerator FadeCoroutine(float alphaIn, float alphaOut)
     {
         float timer = 0f;
         while (timer < fadeDuration)
         {
-            Color newColor = fadeColor;
-            newColor.a = Mathf.Lerp(alphaIn, alphaOut, timer / fadeDuration);
-            rend.material.SetColor("_BaseColor", newColor);
+            target.SetAlpha(Mathf.Lerp(alphaIn, alphaOut, timer / fadeDuration));
 
             timer += Time.deltaTime;
             yield return null;
         }
 
-        Color newColorOut = fadeColor;
-        newColorOut.a = alphaOut;
-        rend.material.SetColor("_BaseColor", newColorOut);
+        target.SetAlpha(alphaOut);
     }
 }

@@ -15,10 +15,11 @@ public class SystemsEditor : EditorWindow
 
     public static void CreateSystemsPrefab()
     {
-        string prefabPath = Path.Combine("Assets", "Resources", $"{PrefabName}.prefab");
+        string prefabPath = Path.Combine("Assets", AssetFolders.resourcesFolder, $"{PrefabName}.prefab");
 
         if (!AssetDatabase.LoadAssetAtPath(prefabPath, typeof(GameObject)))
         {
+            ProjectFilesEditor.CreateFolderStructure(AssetFolders.resourcesFolder);
             GameObject systemsObject = new GameObject(PrefabName);
             SetUpSystemsPrefab(systemsObject);
             PrefabUtility.SaveAsPrefabAsset(systemsObject, prefabPath);
@@ -51,9 +52,9 @@ public class SystemsEditor : EditorWindow
     private static void CreateSceneLoader(GameObject prefab)
     {
         prefab.AddComponent<SceneLoader>();
+        prefab.AddComponent<FadeScreen>();
         GameObject canvas = CreateCanvas(prefab);
-        GameObject blackScreen = CreateBlackScreen(canvas);
-        blackScreen.AddComponent<FadeScreen>();
+        CreateBlackScreen(canvas);
     }
 
     private static GameObject CreateBlackScreen(GameObject canvas)
@@ -62,6 +63,7 @@ public class SystemsEditor : EditorWindow
         blackImage.transform.SetParent(canvas.transform, false);
 
         Image image = blackImage.AddComponent<Image>();
+        blackImage.AddComponent<ImageFadeScreenTarget>();
         image.color = Color.black;
 
         RectTransform rectTransform = blackImage.GetComponent<RectTransform>();
