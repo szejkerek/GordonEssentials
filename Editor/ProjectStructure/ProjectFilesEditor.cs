@@ -17,12 +17,17 @@ public partial class ProjectFilesEditor : EditorWindow
 
         if (GUILayout.Button("Create Default File Structure"))
         {
-            foreach (string folderName in AssetFolders.folderNames)
-            {
-                CreateFolderStructure(folderName);
-            }
-            Debug.Log("Default project structure created.");
+            CreateDefaultFolderStructure();
         }
+    }
+
+    public static void CreateDefaultFolderStructure()
+    {
+        foreach (string folderName in AssetFolders.folderNames)
+        {
+            CreateFolderStructure(folderName);
+        }
+        Debug.Log("Default project structure created.");
     }
 
     public static string CreateFolderStructure(string path)
@@ -42,6 +47,23 @@ public partial class ProjectFilesEditor : EditorWindow
 
         AssetDatabase.Refresh();
         return currentPath;
+    }
+
+    public static bool IsPathValid(string path)
+    {
+        string currentPath = "Assets";
+        string[] folders = path.Split('/');
+
+        foreach (string folder in folders)
+        {
+            currentPath = Path.Combine(currentPath, folder);
+
+            if (!AssetDatabase.IsValidFolder(currentPath))
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void DisplayFolderList()

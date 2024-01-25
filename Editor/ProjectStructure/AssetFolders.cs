@@ -6,6 +6,7 @@ public static class AssetFolders
     public static string scriptsFolder = "__Scripts";
     public static string scriptsUtilityFolder = Path.Combine(scriptsFolder, "Utility");
     public static string colorsFolder = Path.Combine("Art", "Materials", "BasicColors");
+    public static string resourcesFolder = "Resources";
     public static List<string> folderNames = new List<string>
     {
         scriptsFolder,
@@ -22,7 +23,7 @@ public static class AssetFolders
         "Editor",
         "GameData",
         "Plugins",
-        "Resources",
+        resourcesFolder,
         "Scenes",
         "Tests",
         Path.Combine("Tests","Playmode"),

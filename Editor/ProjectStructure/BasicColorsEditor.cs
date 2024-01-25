@@ -6,13 +6,14 @@ public class BasicColorsEditor
     [MenuItem("Tools/Create Materials")]
     static void CreateMaterials()
     {
-        string currentPath = ProjectFilesEditor.CreateFolderStructure(AssetFolders.colorsFolder);
-        MakeAllColors(currentPath);
+        CreateAllBasicColors();
         AssetDatabase.Refresh();
     }
 
-    private static void MakeAllColors(string path)
+    public static void CreateAllBasicColors()
     {
+        string path = ProjectFilesEditor.CreateFolderStructure(AssetFolders.colorsFolder); 
+
         CreateMaterial(path, "Red", Color.red);
         CreateMaterial(path, "Green", Color.green);
         CreateMaterial(path, "Blue", Color.blue);
