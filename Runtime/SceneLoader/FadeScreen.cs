@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FadeScreen : Singleton<FadeScreen>
 {
-    [SerializeField] private float fadeDuration = 0.75f;
     [SerializeField] private bool fadeOnStart;
 
     IFadeScreenTarget target;
@@ -18,39 +17,35 @@ public class FadeScreen : Singleton<FadeScreen>
         }
     }
 
-    public float FadeDuration => fadeDuration;
+    public void FadeIn(float duration = 0.75f) => StartCoroutine(FadeCoroutine(1, 0, duration));
 
-    public void FadeIn() => Fade(1, 0);
+    public void FadeOut(float duration = 0.75f) => StartCoroutine(FadeCoroutine(0, 1, duration));
 
-    public void FadeOut() => Fade(0, 1);
-
-    public void Fade(float alphaIn, float alphaOut)
+    public void FadeAction(Action action, float duration = 1.5f)
     {
-        StartCoroutine(FadeCoroutine(alphaIn, alphaOut));
+        StartCoroutine(FadeActionCoroutine(action, duration));
     }
 
-    public void FadeAction(Action action)
+    private IEnumerator FadeActionCoroutine(Action action, float duration = 1.5f)
     {
-        StartCoroutine(FadeActionCoroutine(action));
-    }
 
-    private IEnumerator FadeActionCoroutine(Action action)
-    {
-        yield return FadeCoroutine(0, 1);
+
+        yield return FadeCoroutine(0, 1, duration * 0.45f);
 
         action?.Invoke();
 
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(duration * 0.1f);
 
-        yield return FadeCoroutine(1, 0);
+        yield return FadeCoroutine(1, 0, duration * 0.45f);
     }
 
-    private IEnumerator FadeCoroutine(float alphaIn, float alphaOut)
+    private IEnumerator FadeCoroutine(float alphaIn, float alphaOut, float duration = 0.75f)
     {
+        duration = Mathf.Max(0.001f, duration); 
         float timer = 0f;
-        while (timer < fadeDuration)
+        while (timer < duration)
         {
-            target.SetAlpha(Mathf.Lerp(alphaIn, alphaOut, timer / fadeDuration));
+            target.SetAlpha(Mathf.Lerp(alphaIn, alphaOut, timer / duration));
 
             timer += Time.deltaTime;
             yield return null;

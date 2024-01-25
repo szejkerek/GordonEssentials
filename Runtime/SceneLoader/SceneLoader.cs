@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : Singleton<SceneLoader>
 {
+    [SerializeField] float SceneChangeTime = 0.75f;
     public Action OnSceneChanged;
     public void LoadScene(int sceneIndex)
     {
@@ -14,6 +15,7 @@ public class SceneLoader : Singleton<SceneLoader>
     IEnumerator LoadSceneRoutine(int sceneIndex)
     {
         FadeScreen fadeScreen = FadeScreen.Instance;
+
         if (fadeScreen == null)
         {
             SceneManager.LoadSceneAsync(sceneIndex);
@@ -21,22 +23,20 @@ public class SceneLoader : Singleton<SceneLoader>
         }
         else
         {
-            fadeScreen.FadeOut();
-            yield return new WaitForSeconds(fadeScreen.FadeDuration);
+            fadeScreen.FadeOut(SceneChangeTime);
+            yield return new WaitForSeconds(SceneChangeTime);
 
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
             operation.allowSceneActivation = false;
 
-            float timer = 0f;
-            while (timer <= fadeScreen.FadeDuration && !operation.isDone)
+            while (!operation.isDone)
             {
-                timer += Time.deltaTime;
                 yield return null;
             }
 
             OnSceneChanged?.Invoke();
             operation.allowSceneActivation = true;
-            fadeScreen.FadeIn();
+            fadeScreen.FadeIn(SceneChangeTime);
         }
     }
 }
