@@ -4,7 +4,7 @@ using UnityEngine;
 
 public partial class ProjectFilesEditor : EditorWindow
 {
-    [MenuItem("Tools/Project Files Manager")]
+    [MenuItem("Tools/Project Initialization/Project Files Manager")]
     public static void ShowWindow()
     {
         GetWindow<ProjectFilesEditor>("Project Files Manager");

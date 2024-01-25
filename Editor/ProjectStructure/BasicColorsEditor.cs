@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class BasicColorsEditor
 {
-    [MenuItem("Tools/Create Materials")]
+    [MenuItem("Tools/Project Initialization/Create Materials")]
     static void CreateMaterials()
     {
         CreateAllBasicColors();

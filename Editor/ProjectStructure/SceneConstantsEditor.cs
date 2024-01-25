@@ -8,7 +8,7 @@ public class SceneConstantsEditor : EditorWindow
 {
     private static string className = "SceneConstants";
 
-    [MenuItem("Tools/Create Scene Constants")]
+    [MenuItem("Tools/Project Initialization/Create Scene Constants")]
     public static void ShowWindow()
     {
         GetWindow<SceneConstantsEditor>("Scene Constants");

@@ -7,7 +7,7 @@ public class SystemsEditor : EditorWindow
 {
     public static string PrefabName { get; } = "Systems";
 
-    [MenuItem("Tools/Create Systems Prefab")]
+    [MenuItem("Tools/Project Initialization/Create Systems Prefab")]
     public static void ShowWindow()
     {
         CreateSystemsPrefab();
