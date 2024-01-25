@@ -1,6 +1,9 @@
-﻿public interface ISavable
+﻿namespace GordonEssentials.Serialization
 {
-    void Load();
-    void Save();
-    string GetDataFileName();
+    public interface ISavable
+    {
+        void Load();
+        void Save();
+        string GetDataFileName();
+    }
 }

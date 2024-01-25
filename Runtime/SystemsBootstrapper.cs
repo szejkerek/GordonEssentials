@@ -1,18 +1,21 @@
 using UnityEngine;
 
-public static class SystemBootstrapper
+namespace GordonEssentials
 {
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    public static void Execute()
+    public static class SystemBootstrapper
     {
-        try
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        public static void Execute()
         {
-            Object.DontDestroyOnLoad(Object.Instantiate(Resources.Load(SystemsEditor.PrefabName)));
+            try
+            {
+                Object.DontDestroyOnLoad(Object.Instantiate(Resources.Load(SystemsEditor.PrefabName)));
+            }
+            catch
+            {
+                Debug.LogWarning("Consider creating Systems asset using 'Tools/Create Systems Prefab' button");
+            }
         }
-        catch
-        {
-            Debug.LogWarning("Consider creating Systems asset using 'Tools/Create Systems Prefab' button");
-        }
-    }
 
+    }
 }

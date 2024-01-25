@@ -3,40 +3,43 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader : Singleton<SceneLoader>
+namespace GordonEssentials.SceneLoaders
 {
-    [SerializeField] float SceneChangeTime = 0.75f;
-    public Action OnSceneChanged;
-    public void LoadScene(int sceneIndex)
+    public class SceneLoader : Singleton<SceneLoader>
     {
-        StartCoroutine(LoadSceneRoutine(sceneIndex));
-    }
-
-    IEnumerator LoadSceneRoutine(int sceneIndex)
-    {
-        FadeScreen fadeScreen = FadeScreen.Instance;
-
-        if (fadeScreen == null)
+        [SerializeField] float SceneChangeTime = 0.75f;
+        public Action OnSceneChanged;
+        public void LoadScene(int sceneIndex)
         {
-            SceneManager.LoadSceneAsync(sceneIndex);
-            Debug.LogError("Couldn't get screen fader in scene!");
+            StartCoroutine(LoadSceneRoutine(sceneIndex));
         }
-        else
+
+        IEnumerator LoadSceneRoutine(int sceneIndex)
         {
-            fadeScreen.FadeOut(SceneChangeTime);
-            yield return new WaitForSeconds(SceneChangeTime);
+            FadeScreen fadeScreen = FadeScreen.Instance;
 
-            AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
-            operation.allowSceneActivation = false;
-
-            while (!operation.isDone)
+            if (fadeScreen == null)
             {
-                yield return null;
+                SceneManager.LoadSceneAsync(sceneIndex);
+                Debug.LogError("Couldn't get screen fader in scene!");
             }
+            else
+            {
+                fadeScreen.FadeOut(SceneChangeTime);
+                yield return new WaitForSeconds(SceneChangeTime);
 
-            OnSceneChanged?.Invoke();
-            operation.allowSceneActivation = true;
-            fadeScreen.FadeIn(SceneChangeTime);
+                AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
+                operation.allowSceneActivation = false;
+
+                while (!operation.isDone)
+                {
+                    yield return null;
+                }
+
+                OnSceneChanged?.Invoke();
+                operation.allowSceneActivation = true;
+                fadeScreen.FadeIn(SceneChangeTime);
+            }
         }
     }
 }

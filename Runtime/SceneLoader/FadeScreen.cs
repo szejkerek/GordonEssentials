@@ -2,55 +2,60 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class FadeScreen : Singleton<FadeScreen>
+namespace GordonEssentials.SceneLoaders
 {
-    [SerializeField] private bool fadeOnStart;
-
-    IFadeScreenTarget target;
-    protected override void Awake()
+    public class FadeScreen : Singleton<FadeScreen>
     {
-        base.Awake();
-        target = GetComponent<IFadeScreenTarget>();
-        if (fadeOnStart)
+        [SerializeField] private bool fadeOnStart;
+
+        IFadeScreenTarget target;
+        protected override void Awake()
         {
-            FadeIn();
-        }
-    }
-
-    public void FadeIn(float duration = 0.75f) => StartCoroutine(FadeCoroutine(1, 0, duration));
-
-    public void FadeOut(float duration = 0.75f) => StartCoroutine(FadeCoroutine(0, 1, duration));
-
-    public void FadeAction(Action action, float duration = 1.5f)
-    {
-        StartCoroutine(FadeActionCoroutine(action, duration));
-    }
-
-    private IEnumerator FadeActionCoroutine(Action action, float duration = 1.5f)
-    {
-
-
-        yield return FadeCoroutine(0, 1, duration * 0.45f);
-
-        action?.Invoke();
-
-        yield return new WaitForSeconds(duration * 0.1f);
-
-        yield return FadeCoroutine(1, 0, duration * 0.45f);
-    }
-
-    private IEnumerator FadeCoroutine(float alphaIn, float alphaOut, float duration = 0.75f)
-    {
-        duration = Mathf.Max(0.001f, duration); 
-        float timer = 0f;
-        while (timer < duration)
-        {
-            target.SetAlpha(Mathf.Lerp(alphaIn, alphaOut, timer / duration));
-
-            timer += Time.deltaTime;
-            yield return null;
+            base.Awake();
+            target = GetComponent<IFadeScreenTarget>();
+            if (fadeOnStart)
+            {
+                FadeIn();
+            }
         }
 
-        target.SetAlpha(alphaOut);
+        public void FadeIn(float duration = 0.75f) => StartCoroutine(FadeCoroutine(1, 0, duration));
+
+        public void FadeOut(float duration = 0.75f) => StartCoroutine(FadeCoroutine(0, 1, duration));
+
+        public void FadeAction(Action action, float duration = 1.5f)
+        {
+            StartCoroutine(FadeActionCoroutine(action, duration));
+        }
+
+        private IEnumerator FadeActionCoroutine(Action action, float duration = 1.5f)
+        {
+
+
+            yield return FadeCoroutine(0, 1, duration * 0.45f);
+
+            action?.Invoke();
+
+            yield return new WaitForSeconds(duration * 0.1f);
+
+            yield return FadeCoroutine(1, 0, duration * 0.45f);
+        }
+
+        private IEnumerator FadeCoroutine(float alphaIn, float alphaOut, float duration = 0.75f)
+        {
+            duration = Mathf.Max(0.001f, duration);
+            float timer = 0f;
+            while (timer < duration)
+            {
+                target.SetAlpha(Mathf.Lerp(alphaIn, alphaOut, timer / duration));
+
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            target.SetAlpha(alphaOut);
+        }
     }
 }
+
+

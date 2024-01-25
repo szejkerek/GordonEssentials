@@ -2,6 +2,8 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using GordonEssentials;
+using GordonEssentials.SceneLoaders;
 
 public class SystemsEditor : EditorWindow
 {

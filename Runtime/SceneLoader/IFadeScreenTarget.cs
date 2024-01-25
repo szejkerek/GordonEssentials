@@ -1,4 +1,7 @@
-public interface IFadeScreenTarget 
+namespace GordonEssentials.SceneLoaders
 {
-    public void SetAlpha(float target);
+    public interface IFadeScreenTarget
+    {
+        public void SetAlpha(float target);
+    }
 }

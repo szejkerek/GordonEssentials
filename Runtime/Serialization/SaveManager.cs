@@ -1,31 +1,34 @@
 ﻿using System;
 using System.IO;
 
-public static class SaveManager<T> where T : new()
+namespace GordonEssentials.Serialization
 {
-    public static void Save(T data, string fileName)
+    public static class SaveManager<T> where T : new()
     {
-        string jsonString = JsonUtilityEx.ToJson(data, prettyPrint: true);
-        FileManager.WriteToFile(fileName, jsonString);
-    }
-
-    public static T Load(string fileName)
-    {
-        try
+        public static void Save(T data, string fileName)
         {
-            if (FileManager.LoadFromFile(fileName, out string result))
-            {
-                return JsonUtilityEx.FromJson<T>(result);
-            }
-            else
-            {
-                throw new IOException("Failed to load data from file.");
-            }
+            string jsonString = JsonUtilityEx.ToJson(data, prettyPrint: true);
+            FileManager.WriteToFile(fileName, jsonString);
         }
-        catch (IOException ex)
+
+        public static T Load(string fileName)
         {
-            Console.WriteLine("Error while loading data: " + ex.Message);
-            return new T();
+            try
+            {
+                if (FileManager.LoadFromFile(fileName, out string result))
+                {
+                    return JsonUtilityEx.FromJson<T>(result);
+                }
+                else
+                {
+                    throw new IOException("Failed to load data from file.");
+                }
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine("Error while loading data: " + ex.Message);
+                return new T();
+            }
         }
     }
 }

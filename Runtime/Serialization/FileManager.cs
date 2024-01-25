@@ -1,36 +1,40 @@
 using System;
 using System.IO;
 using UnityEngine;
-public static class FileManager
-{
-    public static bool WriteToFile(string a_FileName, string a_FileContents)
-    {
-        var fullPath = Path.Combine(Application.persistentDataPath, a_FileName);
-        try
-        {
-            File.WriteAllText(fullPath, a_FileContents);
-            return true;
-        }
-        catch (Exception e)
-        {
-            Debug.LogWarning($"Failed to write to {fullPath} with exception {e}");
-            return false;
-        }
-    }
 
-    public static bool LoadFromFile(string a_FileName, out string result)
+namespace GordonEssentials.Serialization
+{
+    public static class FileManager
     {
-        var fullPath = Path.Combine(Application.persistentDataPath, a_FileName);
-        try
+        public static bool WriteToFile(string a_FileName, string a_FileContents)
         {
-            result = File.ReadAllText(fullPath);
-            return true;
+            var fullPath = Path.Combine(Application.persistentDataPath, a_FileName);
+            try
+            {
+                File.WriteAllText(fullPath, a_FileContents);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"Failed to write to {fullPath} with exception {e}");
+                return false;
+            }
         }
-        catch (Exception e)
+
+        public static bool LoadFromFile(string a_FileName, out string result)
         {
-            Debug.LogWarning($"Failed to read from {fullPath} with exception {e}");
-            result = "";
-            return false;
+            var fullPath = Path.Combine(Application.persistentDataPath, a_FileName);
+            try
+            {
+                result = File.ReadAllText(fullPath);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"Failed to read from {fullPath} with exception {e}");
+                result = "";
+                return false;
+            }
         }
     }
 }

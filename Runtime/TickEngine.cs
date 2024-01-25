@@ -1,28 +1,32 @@
 using System;
-public class TickEngine
+
+namespace GordonEssentials
 {
-    public event Action OnTick;
-
-    private float _tickTimer = 0;
-    private int _tickRate;
-    public int TickRate => _tickRate;
-    public TickEngine(int tickRate)
+    public class TickEngine
     {
-        if (tickRate <= 0)
+        public event Action OnTick;
+
+        private float _tickTimer = 0;
+        private int _tickRate;
+        public int TickRate => _tickRate;
+        public TickEngine(int tickRate)
         {
-            throw new ArgumentException("Tick rate must be greater than 0.");
+            if (tickRate <= 0)
+            {
+                throw new ArgumentException("Tick rate must be greater than 0.");
+            }
+
+            _tickRate = tickRate;
+            _tickTimer = 1.0f / tickRate;
         }
-
-        _tickRate = tickRate;
-        _tickTimer = 1.0f / tickRate;
-    }
-    public void UpdateTicks(float delta)
-    {
-        _tickTimer -= delta;
-        if (_tickTimer <= 0)
+        public void UpdateTicks(float delta)
         {
-            _tickTimer += 1.0f / _tickRate;
-            OnTick?.Invoke();
+            _tickTimer -= delta;
+            if (_tickTimer <= 0)
+            {
+                _tickTimer += 1.0f / _tickRate;
+                OnTick?.Invoke();
+            }
         }
     }
 }
