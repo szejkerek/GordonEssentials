@@ -3,12 +3,10 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.WSA;
 
 public class SceneConstantsEditor : EditorWindow
 {
-    private const string defaultClassName = "SceneConstants";
-    private static string className = defaultClassName;
+    private static string className = "SceneConstants";
 
     [MenuItem("Tools/Create Scene Constants")]
     public static void ShowWindow()
@@ -29,31 +27,10 @@ public class SceneConstantsEditor : EditorWindow
 
     public static void CreateSceneConstantsClass()
     {
-        string currentPath = Path.Combine("Assets", ProjectFilesEditor.scriptsFolder);
-        if (!AssetDatabase.IsValidFolder(currentPath))
-        {
-            AssetDatabase.CreateFolder(Path.GetDirectoryName(currentPath), Path.GetFileName(currentPath));
-        }
-
-        currentPath = Path.Combine("Assets", ProjectFilesEditor.scriptsUtilityFolder);
-        if (!AssetDatabase.IsValidFolder(currentPath))
-        {
-            AssetDatabase.CreateFolder(Path.GetDirectoryName(currentPath), Path.GetFileName(currentPath));
-        }
-
-
-        string classContent = GenerateClassContent();
+        string currentPath = ProjectFilesEditor.CreateFolderStructure(AssetFolders.scriptsUtilityFolder);
         string filePath = Path.Combine(currentPath, $"{className}.cs");
 
-        try
-        {
-            File.WriteAllText(filePath, classContent);
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError($"Failed to write file: {ex.Message}");
-            return;
-        }
+        File.WriteAllText(filePath, GenerateClassContent());
 
         AssetDatabase.Refresh();
         Debug.Log($"Successfully created {className}");

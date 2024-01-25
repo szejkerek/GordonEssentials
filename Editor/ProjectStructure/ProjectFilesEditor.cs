@@ -1,36 +1,9 @@
-using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-public class ProjectFilesEditor : EditorWindow
+public partial class ProjectFilesEditor : EditorWindow
 {
-    public static string scriptsFolder = "__Scripts";
-    public static string scriptsUtilityFolder = Path.Combine("__Scripts", "Utility");
-    public static string colorsFolder = Path.Combine("Art", "Materials", "BasicColors");
-    public static List<string> folderNames = new List<string>
-    {
-        scriptsFolder,
-        scriptsUtilityFolder,
-        "_Prefabs",
-        "Art",
-        "Art/2D",
-        "Art/3D",
-        "Art/Materials",
-        "Art/Shaders",
-        colorsFolder,
-        "Art/VisualEffects",
-        "Audio",
-        "Editor",
-        "GameData",
-        "Plugins",
-        "Resources",
-        "Scenes",
-        "Tests",
-        "Tests/Playmode",
-        "Tests/Editor"
-    };
-
     [MenuItem("Tools/Project Files Manager")]
     public static void ShowWindow()
     {
@@ -44,25 +17,18 @@ public class ProjectFilesEditor : EditorWindow
 
         if (GUILayout.Button("Create Default File Structure"))
         {
-            CreateDefaultFileStructure();
+            foreach (string folderName in AssetFolders.folderNames)
+            {
+                CreateFolderStructure(folderName);
+            }
+            Debug.Log("Default project structure created.");
         }
     }
 
-    private void CreateDefaultFileStructure()
+    public static string CreateFolderStructure(string path)
     {
-        foreach (string folderName in folderNames)
-        {
-            CreateFolderStructure("Assets", folderName);
-        }
-
-        AssetDatabase.Refresh();
-        Debug.Log("Default file structure created.");
-    }
-
-    public static void CreateFolderStructure(string basePath, string folderPath)
-    {
-        string[] folders = folderPath.Split('/');
-        string currentPath = basePath;
+        string currentPath = "Assets";
+        string[] folders = path.Split('/');
 
         foreach (string folder in folders)
         {
@@ -73,29 +39,38 @@ public class ProjectFilesEditor : EditorWindow
                 AssetDatabase.CreateFolder(Path.GetDirectoryName(currentPath), Path.GetFileName(currentPath));
             }
         }
+
+        AssetDatabase.Refresh();
+        return currentPath;
     }
 
     private void DisplayFolderList()
     {
         EditorGUI.indentLevel++;
-        int listSize = EditorGUILayout.IntField("Folder Names Count", folderNames.Count);
-        listSize = Mathf.Max(1, listSize); // Ensure list size is at least 1
 
-        while (folderNames.Count < listSize)
-        {
-            folderNames.Add("New Folder");
-        }
+        int listSize = EditorGUILayout.IntField("Folder Names Count", Mathf.Max(1, AssetFolders.folderNames.Count));
 
-        while (folderNames.Count > listSize)
-        {
-            folderNames.RemoveAt(folderNames.Count - 1);
-        }
+        AdjustListSize(listSize);
 
-        for (int i = 0; i < folderNames.Count; i++)
+        for (int i = 0; i < AssetFolders.folderNames.Count; i++)
         {
-            folderNames[i] = EditorGUILayout.TextField($"Folder Name {i + 1}:", folderNames[i]);
+            AssetFolders.folderNames[i] = EditorGUILayout.TextField($"Folder Name {i + 1}:", AssetFolders.folderNames[i]);
         }
 
         EditorGUI.indentLevel--;
     }
+
+    private void AdjustListSize(int targetSize)
+    {
+        while (AssetFolders.folderNames.Count < targetSize)
+        {
+            AssetFolders.folderNames.Add("New Folder");
+        }
+
+        while (AssetFolders.folderNames.Count > targetSize)
+        {
+            AssetFolders.folderNames.RemoveAt(AssetFolders.folderNames.Count - 1);
+        }
+    }
+
 }

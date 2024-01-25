@@ -1,42 +1,41 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-
-public class BasicColorsEditor : EditorWindow
+public class BasicColorsEditor
 {
-    [MenuItem("Custom/Create Materials")]
+    [MenuItem("Tools/Create Materials")]
     static void CreateMaterials()
     {
-        string folderPath = "Assets/Materials/BasicColo";
-
-        // Create the folder if it doesn't exist
-        if (!AssetDatabase.IsValidFolder(folderPath))
-        {
-            AssetDatabase.CreateFolder("Assets", "Materials");
-        }
-
-        // Create RedMaterial
-        CreateMaterial(folderPath, "RedMaterial", Color.red);
-
-        // Create GreenMaterial
-        CreateMaterial(folderPath, "GreenMaterial", Color.green);
-
-        // Create BlueMaterial
-        CreateMaterial(folderPath, "BlueMaterial", Color.blue);
-
-        // Add more colors/materials as needed
-
-        // Refresh the AssetDatabase to reflect changes
+        string currentPath = ProjectFilesEditor.CreateFolderStructure(AssetFolders.colorsFolder);
+        MakeAllColors(currentPath);
         AssetDatabase.Refresh();
+    }
+
+    private static void MakeAllColors(string path)
+    {
+        CreateMaterial(path, "Red", Color.red);
+        CreateMaterial(path, "Green", Color.green);
+        CreateMaterial(path, "Blue", Color.blue);
+        CreateMaterial(path, "Yellow", Color.yellow);
+        CreateMaterial(path, "Cyan", Color.cyan);
+        CreateMaterial(path, "Magenta", Color.magenta);
+        CreateMaterial(path, "White", Color.white);
+        CreateMaterial(path, "Black", Color.black);
+        CreateMaterial(path, "Gray", Color.gray);
+        CreateMaterial(path, "Orange", new Color(1.0f, 0.5f, 0.0f));
+        CreateMaterial(path, "Purple", new Color(0.5f, 0.0f, 0.5f));
+        CreateMaterial(path, "Brown", new Color(0.6f, 0.4f, 0.2f));
+        CreateMaterial(path, "Pink", new Color(1.0f, 0.6f, 0.75f));
+        CreateMaterial(path, "Turquoise", new Color(0.25f, 0.88f, 0.82f));
+        CreateMaterial(path, "Lime", new Color(0.75f, 1.0f, 0.0f));
+        CreateMaterial(path, "Indigo", new Color(0.29f, 0.0f, 0.51f));
+        CreateMaterial(path, "Salmon", new Color(0.98f, 0.5f, 0.45f));
     }
 
     static void CreateMaterial(string folderPath, string materialName, Color color)
     {
-        // Create a new material
         Material material = new Material(Shader.Find("Standard"));
         material.color = color;
-
-        // Save the material to the specified folder
         string materialPath = $"{folderPath}/{materialName}.mat";
         AssetDatabase.CreateAsset(material, materialPath);
     }
