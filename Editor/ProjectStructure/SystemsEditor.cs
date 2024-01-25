@@ -3,7 +3,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using GordonEssentials;
-using GordonEssentials.SceneLoaders;
 
 public class SystemsEditor : EditorWindow
 {
@@ -67,14 +66,11 @@ public class SystemsEditor : EditorWindow
         Image image = blackImage.AddComponent<Image>();
         blackImage.AddComponent<ImageFadeScreenTarget>();
         image.color = Color.black;
-
         RectTransform rectTransform = blackImage.GetComponent<RectTransform>();
         rectTransform.anchorMin = Vector2.zero;
         rectTransform.anchorMax = Vector2.one;
         rectTransform.sizeDelta = Vector2.zero;
         rectTransform.anchoredPosition = Vector2.zero;
-
-        blackImage.SetActive(false);
         return blackImage;
     }
 
@@ -90,7 +86,7 @@ public class SystemsEditor : EditorWindow
         canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         canvasScaler.referenceResolution = new Vector2(1920, 1080);
 
-        fader.AddComponent<GraphicRaycaster>();
+        fader.GetComponent<GraphicRaycaster>();
         fader.transform.SetParent(prefab.transform, false);
         return fader;
     }

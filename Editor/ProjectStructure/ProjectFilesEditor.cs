@@ -33,7 +33,7 @@ public partial class ProjectFilesEditor : EditorWindow
     public static string CreateFolderStructure(string path)
     {
         string currentPath = "Assets";
-        string[] folders = path.Split('/');
+        string[] folders = path.Split('\\');
 
         foreach (string folder in folders)
         {

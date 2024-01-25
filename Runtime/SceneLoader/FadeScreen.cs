@@ -2,17 +2,16 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace GordonEssentials.SceneLoaders
+namespace GordonEssentials
 {
     public class FadeScreen : Singleton<FadeScreen>
     {
         [SerializeField] private bool fadeOnStart;
 
-        IFadeScreenTarget target;
-        protected override void Awake()
+        [SerializeField] FadeScreenTarget target;
+        void Start()
         {
-            base.Awake();
-            target = GetComponent<IFadeScreenTarget>();
+            target = FindObjectOfType<FadeScreenTarget>();
             if (fadeOnStart)
             {
                 FadeIn();
@@ -30,8 +29,6 @@ namespace GordonEssentials.SceneLoaders
 
         private IEnumerator FadeActionCoroutine(Action action, float duration = 1.5f)
         {
-
-
             yield return FadeCoroutine(0, 1, duration * 0.45f);
 
             action?.Invoke();
