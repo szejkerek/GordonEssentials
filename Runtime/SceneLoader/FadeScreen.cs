@@ -4,7 +4,7 @@ using UnityEngine;
 public class FadeScreen : MonoBehaviour
 {
     public float FadeDuration => fadeDuration;
-    [SerializeField] float fadeDuration = 2f;
+    [SerializeField] float fadeDuration = .75f;
 
     [SerializeField] bool fadeOnStart;
     [SerializeField] Color fadeColor;

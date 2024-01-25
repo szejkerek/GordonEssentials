@@ -9,5 +9,6 @@ class ProjectInitialization
         ProjectFilesEditor.CreateDefaultFolderStructure();
         BasicColorsEditor.CreateAllBasicColors();
         SceneConstantsEditor.CreateSceneConstantsClass();
+        SystemsEditor.CreateSystemsPrefab();
     }
 }

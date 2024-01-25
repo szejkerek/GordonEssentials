@@ -14,11 +14,12 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] AudioMixerGroup sfxMixer;
     [SerializeField] AudioMixerGroup musicMixer;
 
-    [SerializeField] AudioSource musicSource;
+    AudioSource musicSource;
 
     protected override void Awake()
     {
         base.Awake();
+        musicSource = FindObjectOfType<AudioSource>();
         SetMixer(musicSource, SoundType.Music);
     }
 
@@ -103,10 +104,12 @@ public class AudioManager : Singleton<AudioManager>
         switch (type)
         {
             case SoundType.SFX:
-                source.outputAudioMixerGroup = sfxMixer;
+                if (sfxMixer != null)
+                    source.outputAudioMixerGroup = sfxMixer;
                 break;
             case SoundType.Music:
-                source.outputAudioMixerGroup = musicMixer;
+                if (musicMixer != null)
+                    source.outputAudioMixerGroup = musicMixer;
                 break;
         }
     }
@@ -118,6 +121,7 @@ public class AudioManager : Singleton<AudioManager>
         if (value <= -19)
             value = float.MinValue;
 
-        masterMixer.audioMixer.SetFloat("MasterVolume", value);
+        if (masterMixer != null)
+            masterMixer.audioMixer.SetFloat("MasterVolume", value);
     }
 }

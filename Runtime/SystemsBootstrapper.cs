@@ -7,7 +7,7 @@ public static class SystemBootstrapper
     {
         try
         {
-            Object.DontDestroyOnLoad(Object.Instantiate(Resources.Load(SystemsEditor.prefabName)));
+            Object.DontDestroyOnLoad(Object.Instantiate(Resources.Load(SystemsEditor.PrefabName)));
         }
         catch
         {
