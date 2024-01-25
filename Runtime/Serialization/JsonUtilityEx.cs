@@ -6,7 +6,6 @@ using UnityEngine;
 /// <summary>
 /// JsonUtility extension.
 /// support primitive type, List and Array
-///
 /// https://gist.github.com/fuqunaga/b50b49cc08010ba37b07ac01c401a8f0
 /// </summary>
 internal static class JsonUtilityEx

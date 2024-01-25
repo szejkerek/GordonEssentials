@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Extensions
+public static class ListExtensions
 {
     public static List<T> SelectRandomElements<T>(this List<T> list, int count)
     {
