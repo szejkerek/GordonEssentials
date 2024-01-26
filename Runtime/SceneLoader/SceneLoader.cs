@@ -31,8 +31,10 @@ namespace GordonEssentials
                 AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
                 operation.allowSceneActivation = false;
 
-                while (!operation.isDone)
+                float timer = 0f;
+                while (timer <= 0.1f && !operation.isDone)
                 {
+                    timer += Time.deltaTime;
                     yield return null;
                 }
 
