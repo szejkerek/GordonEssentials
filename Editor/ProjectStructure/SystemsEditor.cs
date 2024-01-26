@@ -85,9 +85,8 @@ public class SystemsEditor : EditorWindow
         CanvasScaler canvasScaler = fader.AddComponent<CanvasScaler>();
         canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         canvasScaler.referenceResolution = new Vector2(1920, 1080);
-
-        fader.GetComponent<GraphicRaycaster>();
         fader.transform.SetParent(prefab.transform, false);
         return fader;
     }
 }
+

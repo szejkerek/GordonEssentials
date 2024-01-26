@@ -18,7 +18,7 @@ namespace GordonEssentials
             target = Mathf.Clamp01(target);
             Color newColor = fadeColor;
             newColor.a = target;
-            image.material.color = newColor;
+            image.color = newColor;
         }
     }
 }
