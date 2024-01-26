@@ -4,8 +4,7 @@ using UnityEngine.AddressableAssets;
 
 namespace GordonEssentials.Serialization
 {
-
-    public static class DataLoader<T> where T : Object
+    public static class DataLoader<T>
     {
         public static List<T> Load(AssetLabelReference label)
         {
