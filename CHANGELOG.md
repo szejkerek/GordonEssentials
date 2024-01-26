@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/szejkerek/com.szejkerek.gordonessentials/compare/v1.0.2...v1.1.0) (2024-01-26)
+
+
+### Features
+
+* **package:** Working prototype of package ([f8e72b5](https://github.com/szejkerek/com.szejkerek.gordonessentials/commit/f8e72b5797718afae1ac439aebbf32bbe74d7591))
+
 ## [1.0.2](https://github.com/szejkerek/com.szejkerek.gordonessentials/compare/v1.0.1...v1.0.2) (2024-01-23)
 
 
