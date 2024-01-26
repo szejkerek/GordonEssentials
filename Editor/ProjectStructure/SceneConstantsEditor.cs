@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -47,11 +48,26 @@ public class SceneConstantsEditor : EditorWindow
             string sceneName = Path.GetFileNameWithoutExtension(scenePath);
             int sceneIndex = i;
 
-            content += $"    public const int {sceneName} = {sceneIndex};\n";
+            content += $"    public const int {ValidVariableName(sceneName)} = {sceneIndex};\n";
         }
 
         content += "}\n";
 
         return content;
+    }
+
+
+    private static string ValidVariableName(string name)
+    {
+        name = new string(name
+            .Select(c => char.IsLetterOrDigit(c) || c == '_' ? c : '_')
+            .ToArray());
+
+        if (!char.IsLetter(name[0]) && name[0] != '_')
+        {
+            name = '_' + name;
+        }
+
+        return name;
     }
 }
