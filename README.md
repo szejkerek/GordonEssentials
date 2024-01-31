@@ -7,22 +7,22 @@
   <img alt="License" src="https://img.shields.io/github/license/szejkerek/com.szejkerek.gordonessentials?logo=github">
   </a>
   <a>
-    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/RimuruDev/Unity-Curtain?logo=Mapbox&color=orange">
+    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/szejkerek/com.szejkerek.gordonessentials?logo=Mapbox&color=orange">
   </a>
   <a>
-    <img alt="Repo Size" src="https://img.shields.io/github/repo-size/RimuruDev/Unity-Curtain?logo=VirtualBox">
+    <img alt="Repo Size" src="https://img.shields.io/github/repo-size/szejkerek/com.szejkerek.gordonessentials?logo=VirtualBox">
   </a>
   <a>
-    <img alt="Downloads" src="https://img.shields.io/github/downloads/RimuruDev/Unity-Curtain/total?color=brightgreen">
+    <img alt="Downloads" src="https://img.shields.io/github/downloads/szejkerek/com.szejkerek.gordonessentials/total?color=brightgreen">
   </a>
   <a>
-    <img alt="Last Release" src="https://img.shields.io/github/v/release/RimuruDev/Unity-Curtain?include_prereleases&logo=Dropbox&color=yellow">
+    <img alt="Last Release" src="https://img.shields.io/github/v/release/szejkerek/com.szejkerek.gordonessentials?include_prereleases&logo=Dropbox&color=yellow">
   </a>
   <a>
-    <img alt="GitHub stars" src="https://img.shields.io/github/stars/RimuruDev/Unity-Curtain?branch=main&label=Stars&logo=GitHub&logoColor=ffffff&labelColor=282828&color=informational&style=flat">
+    <img alt="GitHub stars" src="https://img.shields.io/github/stars/szejkerek/com.szejkerek.gordonessentials?branch=main&label=Stars&logo=GitHub&logoColor=ffffff&labelColor=282828&color=informational&style=flat">
   </a>
   <a>
-    <img alt="GitHub user stars" src="https://img.shields.io/github/stars/RimuruDev?affiliations=OWNER&branch=main&label=User%20Stars&logo=GitHub&logoColor=ffffff&labelColor=282828&color=informational&style=flat">
+    <img alt="GitHub user stars" src="https://img.shields.io/github/stars/szejkerek?affiliations=OWNER&branch=main&label=User%20Stars&logo=GitHub&logoColor=ffffff&labelColor=282828&color=informational&style=flat">
   </a>
 </p>
 
