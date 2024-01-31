@@ -1,4 +1,4 @@
-<p align="center"><h1>⭐Curtain for Unity⭐</h1></p>
+<p align="center"><h1>⭐GordonEssentials⭐</h1></p>
  <p align="center">
   <a>
     <img alt="Made With Unity" src="https://img.shields.io/badge/made%20with-Unity-57b9d3.svg?logo=Unity">
@@ -26,5 +26,4 @@
   </a>
 </p>
 
-# GordonEssentials
 Unity package for starting new project.
