@@ -47,8 +47,8 @@
 - **Fix Build Bug**: Issues related to the project build processa and Editor assembly definitions.
 
 ## Setup
-##### Option A) Clone or download the repository and drop it in your Unity project.
-##### Option B) Add the repository to the package manifest (go in YourProject/Packages/ and open the "manifest.json" file and add "com..." line in the depenencies section). If you don't have Git installed, Unity will require you to install it.
+- **Option A)** Clone or download the repository and drop it in your Unity project.
+- **Option B)** Add the repository to the package manifest (go in YourProject/Packages/ and open the "manifest.json" file and add "com..." line in the depenencies section). If you don't have Git installed, Unity will require you to install it.
 ```
 {
   "dependencies": {
@@ -58,4 +58,4 @@
   }
 }
 ```
-##### Option C) Add the repository to the Unity Package Manager using the Package Manager dropdown.
+- **Option C)** Add the repository to the Unity Package Manager using the Package Manager dropdown.
