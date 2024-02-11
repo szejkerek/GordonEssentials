@@ -31,7 +31,7 @@
 ### Overview of functions
 - **Scene Changer**: Smoothly transition between scenes.
 - **Fade Screen**: Screen fading effect for transitions.
-- **Setup Project Folders**: Auto arganize project files and directories.
+- **Setup Project Folders**: Auto organize project files and directories.
 - **Create Basic Colors**: Generate fundamental color materials.
 - **Serialization of data in JSON**.
 - **Singleton** base class.
