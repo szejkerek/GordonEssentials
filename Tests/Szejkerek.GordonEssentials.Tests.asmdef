@@ -1,12 +1,14 @@
 {
-    "name": "Szejkerek.GordonEssentials.Runtime.Tests",
+    "name": "Szejkerek.GordonEssentials.Tests",
     "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],
     "includePlatforms": [],
-    "excludePlatforms": [],
+    "excludePlatforms": [
+        "Editor"
+    ],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [

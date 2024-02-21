@@ -44,7 +44,6 @@
 
 ## To do
 - **Screenshot Utility**: Capturing screenshots within the application.
-- **Fix Build Bug**: Issues related to the project build processa and Editor assembly definitions.
 
 ## Setup
 - **Option A)** Clone or download the repository and drop it in your Unity project.
