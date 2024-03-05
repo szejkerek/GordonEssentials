@@ -1,14 +1,14 @@
 {
-  "name": "com.szejkerek.gordonessentials",
+  "name": "com.szejkerek.com.szejkerek.gordonessentials",
   "version": "1.1.0",
-  "displayName": "Gordon Essentials",
+  "displayName": "com.szejkerek.gordonessentials",
   "description": "Personal Unity package for starting new projects.",
   "unity": "2021.2",
   "documentationUrl": "https://example.com/",
   "changelogUrl": "https://github.com/szejkerek/com.szejkerek.gordonessentials/blob/main/CHANGELOG.md",
   "licensesUrl": "https://github.com/szejkerek/com.szejkerek.gordonessentials/blob/main/LICENSE",
   "author": {
-    "name": "Bartłomiej Gordon",
+    "name": "Bart\u0142omiej Gordon",
     "email": "bartekk.gordon@gmail.com",
     "url": "https://github.com/szejkerek"
   },
