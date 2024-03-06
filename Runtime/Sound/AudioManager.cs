@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 
-
 namespace GordonEssentials
 {
     public class AudioManager : Singleton<AudioManager>
@@ -17,8 +16,8 @@ namespace GordonEssentials
         protected override void Awake()
         {
             base.Awake();
-            musicSource = FindObjectOfType<AudioSource>();
-            SetMixer(musicSource, SoundType.Music);
+            musicSource = GetComponentInChildren<AudioSource>();
+            //SetMixer(musicSource, SoundType.Music);
         }
 
         public void PlayOnTarget(GameObject target, Sound sound)
@@ -32,41 +31,13 @@ namespace GordonEssentials
         {
             GameObject gameObject = new GameObject(sound.name);
             var soundObj = Instantiate(gameObject, position, Quaternion.identity);
-            var sourceObj = soundObj.AddComponent<AudioSource>();
-            Play(sourceObj, sound, SoundType.SFX);
-
-            Destroy(soundObj, sound.Clip.length + 0.4f);
+            PlayOnTarget(soundObj, sound);
         }
 
         public void Play(AudioSource source, Sound sound, SoundType type)
         {
-            if (sound == null || sound.Clip == null)
-            {
-                Debug.LogWarning($"Sound of {source.gameObject.name} is null");
-                return;
-            }
-
-            source.clip = sound.Clip;
-            source.volume = sound.Volume;
-
-            if (sound.PitchVariation > 0)
-            {
-                source.pitch = 1 + Random.Range(-sound.PitchVariation, sound.PitchVariation);
-            }
-            else
-            {
-                source.pitch = 1;
-            }
-
-            source.loop = sound.Loop;
-
-            source.spatialBlend = sound.Settings3D.SpatialBlend ? 1f : 0f;
-            source.minDistance = sound.Settings3D.MinDistance;
-            source.maxDistance = sound.Settings3D.MaxDistance;
-
-            SetMixer(source, type);
-
-            source.Play();
+            //SetMixer(source, type);
+            sound.ApplyTo(source).Play();
         }
 
         public void PlayGlobal(Sound sound, SoundType type = SoundType.SFX)

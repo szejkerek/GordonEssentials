@@ -3,7 +3,7 @@ using UnityEngine.UI;
 namespace GordonEssentials
 {
     [RequireComponent(typeof(Image))]
-    public class ImageFadeScreenTarget : FadeScreenTarget
+    public class ImageFadeScreenTarget : MonoBehaviour, IFadeScreenTarget
     {
         [SerializeField] Color fadeColor = Color.black;
         private Image image;
@@ -13,7 +13,7 @@ namespace GordonEssentials
             SetAlpha(0);
         }
 
-        public override void SetAlpha(float target)
+        public void SetAlpha(float target)
         {
             target = Mathf.Clamp01(target);
             Color newColor = fadeColor;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace GordonEssentials
@@ -8,10 +9,14 @@ namespace GordonEssentials
     {
         [SerializeField] private bool fadeOnStart;
 
-        [SerializeField] FadeScreenTarget target;
+        [SerializeField] IFadeScreenTarget target;
         void Start()
         {
-            target = FindObjectOfType<FadeScreenTarget>();
+            target = FindObjectsOfType<MonoBehaviour>().OfType<IFadeScreenTarget>().FirstOrDefault();
+            if(target == null)
+            {
+                Debug.LogWarning("Could not set up FadeScreenTarget.");
+            }
             if (fadeOnStart)
             {
                 FadeIn();
@@ -22,10 +27,7 @@ namespace GordonEssentials
 
         public void FadeOut(float duration = 0.75f) => StartCoroutine(FadeCoroutine(0, 1, duration));
 
-        public void FadeAction(Action action, float duration = 1.5f)
-        {
-            StartCoroutine(FadeActionCoroutine(action, duration));
-        }
+        public void FadeAction(Action action, float duration = 1.5f) => StartCoroutine(FadeActionCoroutine(action, duration));
 
         private IEnumerator FadeActionCoroutine(Action action, float duration = 1.5f)
         {
