@@ -7,17 +7,12 @@ namespace GordonEssentials
 {
     public class AudioManager : Singleton<AudioManager>
     {
-        [SerializeField] AudioMixerGroup masterMixer;
-        [SerializeField] AudioMixerGroup sfxMixer;
-        [SerializeField] AudioMixerGroup musicMixer;
-
         AudioSource musicSource;
 
         protected override void Awake()
         {
             base.Awake();
             musicSource = GetComponentInChildren<AudioSource>();
-            //SetMixer(musicSource, SoundType.Music);
         }
 
         public void PlayOnTarget(GameObject target, Sound sound)
@@ -36,13 +31,12 @@ namespace GordonEssentials
 
         public void Play(AudioSource source, Sound sound, SoundType type)
         {
-            //SetMixer(source, type);
             sound.ApplyTo(source).Play();
         }
 
-        public void PlayGlobal(Sound sound, SoundType type = SoundType.SFX)
+        public void PlayGlobal(Sound sound)
         {
-            if (type == SoundType.Music)
+            if (sound.SoundType == SoundType.Music)
             {
                 musicSource.Stop();
                 StartCoroutine(FadeInMusic(sound, 1f));
@@ -68,30 +62,30 @@ namespace GordonEssentials
             musicSource.volume = sound.Volume;
         }
 
-        private void SetMixer(AudioSource source, SoundType type)
-        {
-            switch (type)
-            {
-                case SoundType.SFX:
-                    if (sfxMixer != null)
-                        source.outputAudioMixerGroup = sfxMixer;
-                    break;
-                case SoundType.Music:
-                    if (musicMixer != null)
-                        source.outputAudioMixerGroup = musicMixer;
-                    break;
-            }
-        }
+        //private void SetMixer(AudioSource source, SoundType type)
+        //{
+        //    switch (type)
+        //    {
+        //        case SoundType.SFX:
+        //            if (sfxMixer != null)
+        //                source.outputAudioMixerGroup = sfxMixer;
+        //            break;
+        //        case SoundType.Music:
+        //            if (musicMixer != null)
+        //                source.outputAudioMixerGroup = musicMixer;
+        //            break;
+        //    }
+        //}
 
         public void SetVolume(float value)
         {
-            value = Mathf.Clamp01(value) * 30 - 20;
+            value = Mathf.Log10(value) * 20;
 
             if (value <= -19)
                 value = float.MinValue;
 
-            if (masterMixer != null)
-                masterMixer.audioMixer.SetFloat("MasterVolume", value);
+            //if (masterMixer != null)
+            //    masterMixer.audioMixer.SetFloat("MasterVolume", value);
         }
     }
 }
