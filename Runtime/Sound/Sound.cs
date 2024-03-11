@@ -6,8 +6,8 @@ namespace GordonEssentials.Types
     public class Sound : ScriptableObject
     {
         [field: SerializeField] public AudioClip Clip { private set; get; }
-        public SoundType SoundType => soundType;
-        [SerializeField] SoundType soundType = SoundType.SFX;
+        public AudioSettings AudioSettings => audioSettings;
+        [SerializeField] AudioSettings audioSettings;
         public float Volume => volume;
         [SerializeField, Range(0, 1)] float volume = 1;
         public float PitchVariation => pitchVariation;
@@ -20,12 +20,21 @@ namespace GordonEssentials.Types
         {
             if (Clip == null)
             {
-                Debug.LogWarning($"Sound of {source.gameObject.name} is null");
+                Debug.LogWarning($"Audio clip of {name} is missing.");
                 return null;
             }
 
             source.clip = Clip;
             source.volume = Volume;
+
+            if(AudioSettings != null)
+            {
+                source.outputAudioMixerGroup = audioSettings.AudioMixer;
+            }
+            else
+            {
+                Debug.LogWarning($"Audio settings of {name} are missing.");
+            }
 
             if (PitchVariation > 0)
             {

@@ -1,7 +1,6 @@
 using GordonEssentials.Types;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Audio;
 
 namespace GordonEssentials
 {
@@ -18,8 +17,14 @@ namespace GordonEssentials
         public void PlayOnTarget(GameObject target, Sound sound)
         {
             var sourceObj = target.AddComponent<AudioSource>();
-            Play(sourceObj, sound, SoundType.SFX);
-            Destroy(sourceObj, sound.Clip.length + 0.4f);
+            Play(sourceObj, sound);
+
+            float lenght = 0;
+            if(sound.Clip != null)
+            {
+                lenght = sound.Clip.length + 0.1f;
+            }
+            Destroy(sourceObj, lenght);
         }
 
         public void PlayAtPosition(Vector3 position, Sound sound)
@@ -29,20 +34,20 @@ namespace GordonEssentials
             PlayOnTarget(soundObj, sound);
         }
 
-        public void Play(AudioSource source, Sound sound, SoundType type)
+        public void Play(AudioSource source, Sound sound)
         {
-            sound.ApplyTo(source).Play();
+            sound.ApplyTo(source)?.Play();
         }
 
         public void PlayGlobal(Sound sound)
         {
-            if (sound.SoundType == SoundType.Music)
-            {
-                musicSource.Stop();
-                StartCoroutine(FadeInMusic(sound, 1f));
-            }
-
             PlayOnTarget(gameObject, sound);
+        }
+
+        public void PlayMusic(Sound sound)
+        {
+            musicSource.Stop();
+            StartCoroutine(FadeInMusic(sound, 1f));
         }
 
         private IEnumerator FadeInMusic(Sound sound, float duration)
